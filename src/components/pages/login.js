@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUser } from "../../redux/userSlice";
 import { Navigate } from "react-router-dom";
+import { logout } from "../../redux/userSlice";
 
 function Login(){
 
