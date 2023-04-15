@@ -1,13 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/userSlice";
+import { checkUser } from "../../redux/userSlice";
+import { Navigate } from "react-router-dom";
 
 function Login(){
 
     const [data, setData] = useState({});
     const dispatch = useDispatch();
-    const {isWrongCredentials} = useSelector(state => state.user);
+    const {isWrongCredentials, isLoggedin} = useSelector(state => state.user);
+
+    if (isLoggedin){
+        return(<Navigate to='/dashboard' />);
+    }
 
     function handleInput(e){
         setData({
@@ -18,10 +23,7 @@ function Login(){
 
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(login({
-            email: data.email,
-            password: data.password
-        }));
+        dispatch(checkUser(data));
 
         // show alert for wrong credential
         if (isWrongCredentials){

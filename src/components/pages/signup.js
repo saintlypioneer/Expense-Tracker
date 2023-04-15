@@ -1,14 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/userSlice";
-import axios from "axios";
+import { addUser } from "../../redux/userSlice";
+import { Navigate } from "react-router-dom";
 
 function Signup(){
 
     const [data, setData] = useState({});
     const dispatch = useDispatch();
-    const {isWrongCredentials} = useSelector(state => state.user);
+    const {isWrongCredentials, isLoggedin} = useSelector(state => state.user);
+
+    if (isLoggedin){
+        return(<Navigate to='/dashboard' />);
+    }
 
     function handleInput(e){
         setData({
@@ -19,14 +23,7 @@ function Signup(){
 
     async function handleSubmit(e){
         e.preventDefault();
-        await axios.post("http://localhost:3002/users", data).then(response=>{
-            console.log(response);
-        }).catch(err=>{
-            console.log(err);
-        })
-        if (isWrongCredentials){
-            window.alert("Wrong Credentials!!");
-        }
+        dispatch(addUser(data));
     }
 
     return (

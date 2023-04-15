@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // ELEMENTS
 import Login from "./pages/login";
@@ -6,6 +7,8 @@ import Signup from "./pages/signup";
 import Dashboard from "./pages/dashboard";
 
 function AllRoutes (props){
+
+    const {isLoggedin} = useSelector(state=>state.user);
 
     const routes = [
         {
@@ -21,7 +24,9 @@ function AllRoutes (props){
         },
         {
             path: "/dashboard",
-            element: <Dashboard />
+            element: <div>
+                {isLoggedin?<Dashboard />:<Navigate to='/login' />}
+            </div>
         },
     ];
 
