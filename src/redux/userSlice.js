@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:3002"
 
 // async-actions
 export const addUser = createAsyncThunk("addUser", async(data)=>{
-    const response = await axios.post(`${BASE_URL}/users`, data);
+    const response = await axios.post(`${BASE_URL}/users`, {...data, transactions: []});
     return (response.data);
 });
 
@@ -26,6 +26,7 @@ const userSlice = createSlice({
         email: "",
         password: "",
         isLoggedin: false,
+        id: "",
         isWrongCredentials: false
     },
     reducers: {
@@ -59,12 +60,14 @@ const userSlice = createSlice({
             state.fullname= action.payload.fullname;
             state.email= action.payload.email;
             state.password= action.payload.password;
+            state.id= action.payload.id;
             state.isLoggedin = true;
             state.isWrongCredentials= false;
         });
         builder.addCase(addUser.rejected, (state, action)=>{
             state.fullname= "";
             state.email= "";
+            state.id= "";
             state.password= "";
             state.isLoggedin= false;
             state.isWrongCredentials= true;
@@ -73,6 +76,7 @@ const userSlice = createSlice({
             console.log("logged in");
             state.fullname= action.payload.fullname;
             state.email= action.payload.email;
+            state.id= action.payload.id;
             state.password= action.payload.password;
             state.isLoggedin = true;
             state.isWrongCredentials= false;
@@ -80,6 +84,7 @@ const userSlice = createSlice({
         builder.addCase(checkUser.rejected, (state, action)=>{
             console.log("wrong credentials");
             state.fullname= "";
+            state.id= "";
             state.email= "";
             state.password= "";
             state.isLoggedin= false;
