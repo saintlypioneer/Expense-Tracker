@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 
 // Reducers
 import userReducer from "./userSlice";
+import transactionsReducer from "./transactionSlice";
 
 
 const persistConfig = {
@@ -14,7 +15,8 @@ const persistConfig = {
 
 export const store = configureStore({
     reducer: {
-        user: persistReducer(persistConfig, userReducer)
+        user: persistReducer(persistConfig, userReducer),
+        transactions: persistReducer(persistConfig, transactionsReducer),
     },
     middleware: [thunk]
 });

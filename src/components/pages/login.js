@@ -66,6 +66,7 @@ const Container = styled.div`
 
         &>input{
             padding: 5px 10px;
+            border: 1px solid black;
 
             &[type="submit"]{
                 background-color: black;
