@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Tracker from "../tracker";
 import Analytics from "../analytics";
+import History from "../history";
 
 function Dashboard(props){
     return (
@@ -21,7 +22,7 @@ function Dashboard(props){
                         <Analytics />
                     </TabPanel>
                     <TabPanel>
-                        TR3
+                        <History />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

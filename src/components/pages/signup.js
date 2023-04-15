@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/userSlice";
+import axios from "axios";
 
 function Signup(){
 
@@ -16,15 +17,13 @@ function Signup(){
         });
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        // dispatch(login({
-        //     fullname: data.fullname,
-        //     email: data.email,
-        //     password: data.password
-        // }));
-
-        // show alert for wrong credential
+        await axios.post("http://localhost:3002/users", data).then(response=>{
+            console.log(response);
+        }).catch(err=>{
+            console.log(err);
+        })
         if (isWrongCredentials){
             window.alert("Wrong Credentials!!");
         }
